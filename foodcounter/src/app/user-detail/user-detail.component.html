@@ -1,3 +1,69 @@
-<p>
-  user-detail works!
-</p>
+<div class="container">
+  <mat-card class="card">
+    <form [formGroup]="myForm">
+      <h2 >Edytuj swój profil</h2>
+      Value: {{myForm.value | json}}
+      <br><br><br>
+      <div class="box">
+        <mat-form-field>
+          <input matInput placeholder="Imię" formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Nazwisko" formControlName="lastName">
+        </mat-form-field>
+      </div>
+      <div class="box">
+        <mat-form-field>
+          <input type="text" pattern="[0-9]*" maxlength="3" matInput placeholder="Aktualna waga" formControlName="weight">
+
+          <mat-error *ngIf="weight.invalid && weight.touched">
+              Wprowadź poprawną wagę
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input type="text" pattern="[0-9]*" maxlength="3" matInput placeholder="Docelowa waga" formControlName="goalWeight">
+          <mat-error *ngIf="goalWeight.invalid && goalWeight.touched">
+              Wprowadź poprawną wagę
+            </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="box">
+        <mat-form-field>
+            <input type="text" pattern="[0-9]*" maxlength="4" matInput placeholder="Liczba kalorii" formControlName="dailyCalories">
+            <mat-error *ngIf="dailyCalories.invalid && dailyCalories.touched">
+              Coś nie tak z tymi kaloriami
+              </mat-error>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" class="btn">Zapisz</button>
+    </form>
+  </mat-card>
+
+  <mat-card class="card">
+      <form [formGroup]="loginForm">
+        <h2>Edytuj swoje dane logowania</h2>
+        Value: {{loginForm.value | json}}
+        <br><br><br>
+        <div class="box">
+          <mat-form-field>
+            <input matInput placeholder="Login" formControlName="login">
+          </mat-form-field>
+          <mat-form-field>
+              <input matInput placeholder="Email" formControlName="email">
+            </mat-form-field>
+
+        </div>
+
+        <div class="box">
+            <mat-form-field>
+                <input type="password" matInput placeholder="Hasło" formControlName="password">
+            </mat-form-field>
+            <mat-form-field>
+                <input type="password" matInput placeholder="Powtórz hasło" formControlName="password">
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="primary" class="btn">Zapisz</button>
+      </form>
+    </mat-card>
+</div>
+
