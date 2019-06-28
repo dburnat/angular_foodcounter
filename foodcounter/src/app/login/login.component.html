@@ -14,29 +14,26 @@
   </div>
 </form> -->
 
-<div class="displayTable">
+<!-- <div class="displayTable">
     <div class="displayTableCell">
 
       <div class="authBlock">
         <h3>Zaloguj się</h3>
         <div class="formGroup">
-          <input type="text" class="formControl" placeholder="Nazwa użytkownika" #userName required>
+          <input type="text" class="formControl" placeholder="Nazwa użytkownika"  required>
         </div>
 
         <div class="formGroup">
           <input type="password" class="formControl" placeholder="Hasło" #userPassword required>
         </div>
 
-        <!-- Calling SignIn Api from AuthService -->
+
         <div class="formGroup">
           <input type="button" class="btn btnPrimary" value="Zaloguj" (click)="authService.Login(userName.value, userPassword.value)">
         </div>
 
-        <!-- <div class="formGroup">
-          <span class="or"><span class="orInner">Albo</span></span>
-        </div> -->
 
-        <!-- Calling GoogleAuth Api from AuthService -->
+
         <div class="formGroup">
           <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
             <i class="fab fa-google-plus-g"></i>
@@ -54,4 +51,35 @@
       </div>
 
     </div>
-  </div>
+  </div> -->
+  <div class="form-wraper">
+      <div class="form-container card">
+        <div class="form-header">
+          <img src="../../assets/baseline-people-24px.svg"  class="main-lock-icon" alt="">
+        </div>
+
+        <div class="form-body">
+          <mat-form-field class="justifier">
+              <input matInput placeholder="Email" text="email" class="form-input" #userName>
+          </mat-form-field>
+          <mat-form-field class="justifier">
+              <input type="password" matInput placeholder="Password" text="password" class="form-input"  #userPassword>
+          </mat-form-field>
+        </div>
+
+        <div class="form-footer">
+            <button mat-raised-button class="btn custom-btn" (click)="authService.Login(userName.value, userPassword.value)">
+                <mat-icon>input</mat-icon> Zaloguj się
+            </button>
+            <div class="txt">
+              ALBO
+            </div>
+            <button mat-raised-button class="btn" (click)="authService.GoogleAuth()">
+              <img type="image" class="google-icon" src="../../assets/search.svg" alt="" > Zaloguj się z Google
+            </button>
+        </div>
+        <div class="additional-link">
+          <a routerLink="/register">Nie masz konta? <strong>Zarejestruj się</strong></a>
+        </div>
+      </div>
+    </div>

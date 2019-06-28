@@ -1,4 +1,4 @@
-<div class="displayTable">
+<!-- <div class="displayTable">
     <div class="displayTableCell">
 
       <div class="authBlock">
@@ -16,11 +16,9 @@
           <input type="button" class="btn btnPrimary" value="Zarejestruj się" (click)="authService.Register(userEmail.value, userPwd.value)">
         </div>
 
-        <!-- <div class="formGroup">
-          <span class="or"><span class="orInner">Albo</span></span>
-        </div> -->
 
-        <!-- Continue with Google -->
+
+
         <div class="formGroup">
           <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
             <i class="fab fa-google-plus-g"></i>
@@ -35,4 +33,36 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
+
+  <div class="form-wraper">
+      <div class="form-container card">
+        <div class="form-header">
+          <img src="../../assets/baseline-person_add-24px.svg"  class="main-lock-icon" alt="">
+        </div>
+
+        <div class="form-body">
+          <mat-form-field class="justifier">
+              <input matInput placeholder="Email" text="email" class="form-input"  #userEmail required>
+          </mat-form-field>
+          <mat-form-field class="justifier">
+              <input type="password" matInput placeholder="Password" text="password" class="form-password" #userPwd required>
+          </mat-form-field>
+        </div>
+
+        <div class="form-footer">
+            <button mat-raised-button class="btn custom-btn" (click)="authService.Register(userEmail.value, userPwd.value)">
+                <mat-icon>add</mat-icon> Zarejestruj się
+            </button>
+            <div class="txt">
+                ALBO
+              </div>
+              <button mat-raised-button class="btn" (click)="authService.GoogleAuth()">
+                <img src="/assets/search.svg" alt="" class="google-icon"> Zarejestruj się z Google
+              </button>
+        </div>
+        <div class="additional-link">
+          <a routerLink="/login">Posiadasz już konto? <strong>Zaloguj się</strong></a>
+        </div>
+      </div>
+    </div>

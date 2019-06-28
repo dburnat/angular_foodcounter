@@ -1,27 +1,28 @@
-<div class="displayTable">
-    <div class="displayTableCell">
-
-      <div class="authBlock">
-        <h3>Dziękujęmy za zarejestrowanie</h3>
-
-        <div class="formGroup" *ngIf="authService.userData as user">
-          <p class="text-center">Wysłaliśmy link potwierdzający rejestrację na <strong>{{user.email}}</strong>.</p>
-          <p class="text-center">Proszę sprawdź swoją pocztę i wciśnij link zawarty w emailu, aby dokończyć proces rejestracji.</p>
+  <div class="form-wraper">
+      <div class="form-container card">
+        <div class="form-header">
+          <img src="../../assets/baseline-email-24px.svg"  class="main-lock-icon" alt="">
         </div>
 
-        <!-- Calling SendVerificationMail() method using authService Api -->
-        <div class="formGroup">
-          <button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail()">
-            <i class="fas fa-redo-alt"></i>
-            Prześlij jeszcze raz email weryfikujący
-          </button>
+        <div class="form-body" *ngIf="authService.userData as user">
+          <mat-card>
+              <mat-card-content style="font-size: 18px">
+                <p class="text-center">Wysłaliśmy link potwierdzający rejestrację na <strong>{{user.email}}</strong>.</p>
+                <p class="text-center">Proszę sprawdź swoją pocztę i wciśnij link zawarty w emailu, aby dokończyć proces rejestracji.</p>
+              </mat-card-content>
+          </mat-card>
         </div>
 
+        <div class="form-footer">
+            <button mat-raised-button class="btn custom-btn" routerLink="/login">
+                <mat-icon>add</mat-icon> Powrót do logowania
+            </button>
+            <div class="txt">
+                ALBO
+              </div>
+              <button mat-raised-button class="btn"  (click)="authService.SendVerificationMail()">
+                <img src="/assets/baseline-refresh-24px.svg" alt="" class="google-icon"> Wyślij link aktywacyjny jeszcze raz
+              </button>
+        </div>
       </div>
-
-      <div class="redirectToLogin">
-        <span>Powrót do?<span class="redirect" routerLink="/login"> Zaloguj się</span></span>
-      </div>
-
     </div>
-  </div>
