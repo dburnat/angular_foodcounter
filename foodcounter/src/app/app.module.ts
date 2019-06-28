@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -55,7 +56,7 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     AngularFireAuthModule
 
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

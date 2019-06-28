@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm">
+<!-- <form [formGroup]="registerForm">
   <div class="form-group">
     <label>Email address</label>
     <input type="email" formControlName="email" class="form-control" required>
@@ -12,4 +12,46 @@
   <div>
     <button type="submit" (click)="tryRegister(registerForm.value)" class="btn btn-default">Register</button>
   </div>
-</form>
+</form> -->
+
+<div class="displayTable">
+    <div class="displayTableCell">
+
+      <div class="authBlock">
+        <h3>Zaloguj się</h3>
+        <div class="formGroup">
+          <input type="text" class="formControl" placeholder="Nazwa użytkownika" #userName required>
+        </div>
+
+        <div class="formGroup">
+          <input type="password" class="formControl" placeholder="Hasło" #userPassword required>
+        </div>
+
+        <!-- Calling SignIn Api from AuthService -->
+        <div class="formGroup">
+          <input type="button" class="btn btnPrimary" value="Zaloguj" (click)="authService.SignIn(userName.value, userPassword.value)">
+        </div>
+
+        <div class="formGroup">
+          <span class="or"><span class="orInner">Albo</span></span>
+        </div>
+
+        <!-- Calling GoogleAuth Api from AuthService -->
+        <div class="formGroup">
+          <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+            <i class="fab fa-google-plus-g"></i>
+            Zaloguj się z Google
+          </button>
+        </div>
+
+        <div class="forgotPassword">
+          <span routerLink="/forgot-password">Zapomniałeś hasła?</span>
+        </div>
+      </div>
+
+      <div class="redirectToLogin">
+        <span>Nie masz konta?<span class="redirect" routerLink="/register-user"> Zarejestruj się</span></span>
+      </div>
+
+    </div>
+  </div>
