@@ -107,9 +107,6 @@ export class AuthService {
         displayName: user.displayName,
         photoURL: user.photoURL,
         emailVerified: user.emailVerified,
-        weight: user.weight,
-        goalWeight: user.goalWeight,
-        dailyCalories: user.dailyCalories
       }
       return userRef.set(userData,{
         merge: true
