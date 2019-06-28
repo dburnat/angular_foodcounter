@@ -16,12 +16,16 @@ export class AppComponent {
    ngOnInit(): void {
      //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
      //Add 'implements OnInit' to the class.
-     this.loginUser('root@gmail.com', '1234567');
+     //this.loginUser('root@gmail.com', '1234567');
+     this.logout();
     }
     loginUser(email: string , pass: string ){
       this.authService.login(email, pass)
         .then(ret =>{
           console.log('Login:' , ret);
         });
+    }
+    logout(){
+      this.authService.logout();
     }
 }
