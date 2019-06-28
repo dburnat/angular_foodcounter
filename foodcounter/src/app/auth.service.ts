@@ -81,7 +81,7 @@ export class AuthService {
 
     //google login authorization
     GoogleAuth(){
-      return this.AuthLogin(new auth.GoogleAuthProvider)
+      return this.AuthLogin(new auth.GoogleAuthProvider());
     }
 
     //logic for running different providers
@@ -89,7 +89,7 @@ export class AuthService {
       return this.afAuth.auth.signInWithPopup(provider)
         .then((result)=>{
           this.ngZone.run(()=>{
-            this.router.navigate['home'];
+            this.router.navigate(['home']);
           })
           this.SetUserData(result.user);
         }).catch((error) =>{
@@ -114,10 +114,14 @@ export class AuthService {
     }
 
     Logout(){
-      return this.afAuth.auth.signOut().then(()=>{
+       return this.afAuth.auth.signOut()
+       .then(()=>{
         localStorage.removeItem('user');
-          this.router.navigate['login'];
+        this.router.navigate(['login']);
+        window.location.reload();
+       })
+      }
 
-      })
-    }
+
+
 }

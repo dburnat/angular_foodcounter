@@ -1,5 +1,8 @@
 
-<div class="container">
+<div class="container" *ngIf="authService.isLoggedIn">
+    <!-- <mat-toolbar color="warn" *ngIf="authService.isLoggedIn == false">
+        <span >Potwierdź swój email, żeby korzystać z funkcjonalności strony</span>
+    </mat-toolbar> -->
       <mat-card class="card" *ngIf="authService.userData as user">
           <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
           <p>User ID: <strong>{{user.uid}}</strong></p>
