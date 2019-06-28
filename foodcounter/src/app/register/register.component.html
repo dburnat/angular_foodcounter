@@ -1,3 +1,38 @@
-<p>
-  register works!
-</p>
+<div class="displayTable">
+    <div class="displayTableCell">
+
+      <div class="authBlock">
+        <h3>Zarejestruj się</h3>
+
+        <div class="formGroup">
+          <input type="email" class="formControl" placeholder="Adres Email" #userEmail required>
+        </div>
+
+        <div class="formGroup">
+          <input type="password" class="formControl" placeholder="Hasło" #userPwd required>
+        </div>
+
+        <div class="formGroup">
+          <input type="button" class="btn btnPrimary" value="Zarejestruj się" (click)="authService.Register(userEmail.value, userPwd.value)">
+        </div>
+
+        <div class="formGroup">
+          <span class="or"><span class="orInner">Albo</span></span>
+        </div>
+
+        <!-- Continue with Google -->
+        <div class="formGroup">
+          <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
+            <i class="fab fa-google-plus-g"></i>
+            Kontynuuj z Google
+          </button>
+        </div>
+
+      </div>
+
+      <div class="redirectToLogin">
+        <span>Posiadasz już konto? <span class="redirect" routerLink="/login">Zaloguj się</span></span>
+      </div>
+    </div>
+
+  </div>
