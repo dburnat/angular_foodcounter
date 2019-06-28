@@ -1,9 +1,11 @@
+
 <div class="container">
       <mat-card class="card" *ngIf="authService.userData as user">
           <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
           <p>User ID: <strong>{{user.uid}}</strong></p>
           <p>Email: <strong>{{user.email}}</strong></p>
           <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
+          <p>Is logged in: <strong>{{authService.isLoggedIn}}</strong></p>
           <button mat-raised-button color="primary" class="btn" (click)="authService.Logout()">Wyloguj się</button>
       </mat-card>
 </div>
