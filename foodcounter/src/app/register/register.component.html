@@ -5,7 +5,7 @@
         <h3>Zarejestruj się</h3>
 
         <div class="formGroup">
-          <input type="email" class="formControl" placeholder="Adres Email" #userEmail required>
+          <input type="email" class="formControl" placeholder="Adres email" #userEmail required>
         </div>
 
         <div class="formGroup">
@@ -16,9 +16,9 @@
           <input type="button" class="btn btnPrimary" value="Zarejestruj się" (click)="authService.Register(userEmail.value, userPwd.value)">
         </div>
 
-        <div class="formGroup">
+        <!-- <div class="formGroup">
           <span class="or"><span class="orInner">Albo</span></span>
-        </div>
+        </div> -->
 
         <!-- Continue with Google -->
         <div class="formGroup">

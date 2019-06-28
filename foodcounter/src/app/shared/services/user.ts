@@ -4,7 +4,8 @@ export interface User {
   displayName: string;
   photoURL: string;
   emailVerified: boolean;
-  weight: number,
-  goalWeight: number,
-  dailyCalories: number,
+  weight: number;
+  goalWeight: number;
+  dailyCalories: number;
+
 }
