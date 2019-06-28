@@ -1,25 +1,26 @@
 
 import { AuthService } from './auth.service';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { CanActivate } from '@angular/router/src/utils/preactivation';
-import { map } from 'rxjs/operators';
-import { User } from 'firebase';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, Router, CanActivate } from '@angular/router';
+import { Observable } from 'rxjs';
 
  @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate  {
-  path: ActivatedRouteSnapshot[];  route: ActivatedRouteSnapshot;
 
-   constructor(private authService: AuthService, router: Router) {}
-   
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.authService.authState.pipe(
-      map((user: User) => {
-        console.log(user);
-        return true;
-      })
-    );
-  }
+
+   constructor(
+     public authService: AuthService,
+     public router: Router) {}
+
+  canActivate(
+    next: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot) : Observable<boolean> | Promise<boolean> | boolean{
+      if(this.authService.isLoggedIn !== true){
+        this.router.navigate[('login')];
+      }
+      return true;
+    }
+
 }
