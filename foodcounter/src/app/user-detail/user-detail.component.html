@@ -1,9 +1,29 @@
 
 <div class="container">
+
+  <mat-card class="card" *ngIf="(userProfile | async) as user">
+    <mat-card-header>
+      <div class="profile">
+      <img mat-card-image class="photo" src="{{user.profilePhoto}}" >
+      <mat-card-title>
+        {{user.firstName}} {{user.lastName}}
+      </mat-card-title>
+      <mat-card-subtitle>
+        {{user.weight}}kg <i class="material-icons">
+            arrow_forward
+            </i> {{user.goalWeight}}kg
+      </mat-card-subtitle>
+      <mat-card-content>
+        <p>
+          Dzienny cel kalorii: <strong>{{user.dailyCalories}}</strong>
+        </p>
+      </mat-card-content>
+    </div>
+    </mat-card-header>
+  </mat-card>
   <mat-card class="card">
     <form [formGroup]="myForm">
       <h2 >Edytuj swój profil</h2>
-      Value: {{myForm.value | json}}
       <br><br><br>
       <div class="box">
         <mat-form-field>
@@ -36,36 +56,8 @@
               </mat-error>
         </mat-form-field>
       </div>
-      <button mat-raised-button color="primary" class="btn">Zapisz</button>
+      <button mat-raised-button color="primary"  class="btn" (click)="authService.UpdateUserProfile(authService.userData,myForm.value)">Zapisz</button>
     </form>
   </mat-card>
-
-  <mat-card class="card">
-      <form [formGroup]="loginForm">
-        <h2>Edytuj swoje dane logowania</h2>
-        Value: {{loginForm.value | json}}
-        <br><br><br>
-        <div class="box">
-          <mat-form-field>
-            <input matInput placeholder="Login" formControlName="login">
-          </mat-form-field>
-          <mat-form-field>
-              <input matInput placeholder="Email" formControlName="email">
-            </mat-form-field>
-
-        </div>
-
-        <div class="box">
-            <mat-form-field>
-                <input type="password" matInput placeholder="Hasło" formControlName="password">
-            </mat-form-field>
-            <mat-form-field>
-                <input type="password" matInput placeholder="Powtórz hasło" formControlName="password">
-            </mat-form-field>
-          </div>
-          <button mat-raised-button color="primary" class="btn">Zapisz</button>
-      </form>
-    </mat-card>
-</div>
 
 

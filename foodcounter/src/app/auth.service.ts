@@ -1,7 +1,7 @@
 import { AuthGuard } from './auth.guard';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { Observable} from 'rxjs';
+import { Observable, merge} from 'rxjs';
 import { auth } from 'firebase';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
@@ -13,6 +13,7 @@ import { User}  from './shared/services/user'
 })
 export class AuthService {
   userData: any; //save logged in user data
+  userProfile: any;
   constructor(
     public afs: AngularFirestore,
     public afAuth: AngularFireAuth,
@@ -31,6 +32,7 @@ export class AuthService {
           JSON.parse(localStorage.getItem('user'));
         }
       })
+
     }
 
     //Method used to login with email:password
@@ -123,5 +125,27 @@ export class AuthService {
       }
 
 
+      UpdateUserProfile(user,form){
+        var userRef = this.afs.collection('profileinfos').doc(user.uid);
+
+        userRef.update({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          dailyCalories: form.dailyCalories,
+          weight: form.weight,
+          goalWeight: form.goalWeight,
+          profilePhoto: user.photoURL
+        }).then(function() {
+          console.log("Document successfully written!");
+          })
+          .catch(function(error) {
+          console.error("Error writing document: ", error);
+        });
+
+      }
+      GetUserProfile(user){
+        var docRef = this.afs.collection('profileinfos').doc(user.uid).valueChanges();
+        return docRef;
+      }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from './../auth.service';
+import { Component, OnInit, DoCheck, AfterContentInit, AfterContentChecked, OnChanges } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 @Component({
@@ -6,27 +7,34 @@ import {FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.scss']
 })
-export class UserDetailComponent implements OnInit {
+export class UserDetailComponent implements OnInit,OnChanges{
 
   myForm: FormGroup;
-  loginForm: FormGroup
+  userId:any;
+  userProfile: any;
 
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+    public authService: AuthService,
+    ) {
 
-  ngOnInit() {
-    this.myForm = this.fb.group({
-      firstName: '',
-      lastName: '',
-      weight: ['',[ Validators.required] ],
-      goalWeight: ['',[ Validators.required] ],
-      dailyCalories: ['',[ Validators.required] ],
-    });
-    this.loginForm = this.fb.group({
-      login: '',
-      password: '',
-      email: ''
-    })
+      this.userProfile = this.authService.GetUserProfile(this.authService.userData);
+     }
+
+    ngOnChanges(){
+
+    }
+    ngOnInit() {
+      this.myForm = this.fb.group({
+        firstName: '',
+        lastName: '',
+        weight: ['',[ Validators.required] ],
+        goalWeight: ['',[ Validators.required] ],
+        dailyCalories: ['',[ Validators.required] ],
+      });
+
+      // this.userProfile = this.authService.GetUserProfile(this.authService.userData);
+
   }
 
   get weight(){
