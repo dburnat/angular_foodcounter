@@ -2,29 +2,36 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from './../auth.service';
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
 
   userProfile: any;
   todaysCalories: any;
-  addFoodForm: FormGroup
+  addFoodForm: FormGroup;
+  date : string;
+  foodList: Observable<any>;
 
 
   constructor(
     public authService: AuthService,
     public router: Router,
     public ngZone: NgZone,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private datePipe : DatePipe
 
   )
   {
      this.userProfile = this.authService.GetUserProfile(this.authService.userData);
      this.todaysCalories = 0;
+    this.date = this.datePipe.transform(new Date(), 'dd-MM-yyyy' );
     }
 
 
@@ -32,10 +39,24 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.addFoodForm = this.fb.group({
       foodName: ['', [Validators.required]],
-      calories:['', [Validators.required]]
+      calories:['', [Validators.required]],
+      date: this.date
     });
-  }
 
+    this.foodList = this.authService.GetFoods(this.authService.userData, this.date)
+    .pipe(
+      map(docList =>{
+        return docList.map(doc=>{
+          return{
+            ...doc.payload.doc.data(),
+            id: doc.payload.doc.id
+          };
+        });
+      }),
+      tap(ret => console.log(ret)),
+    );
+    
+    }
   public checkFormFields(): boolean{
     const invalid =[];
     const controls = this.addFoodForm.controls;
@@ -54,6 +75,8 @@ export class HomeComponent implements OnInit {
   OnAddButtonClick(){
     this.authService.AddFood(this.authService.userData, this.addFoodForm.value);
   }
+
+
 
 
 

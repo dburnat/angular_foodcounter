@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { AuthService } from './auth.service';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -56,10 +57,10 @@ import { VerifyEmailComponent } from './verify-email/verify-email.component';
     MatCardModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
 
   ],
-  providers: [AuthService],
+  providers: [AuthService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

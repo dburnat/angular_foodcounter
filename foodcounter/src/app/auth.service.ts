@@ -154,16 +154,18 @@ export class AuthService {
         let food: Food ={
           foodName : form.foodName,
           calories : form.calories,
-          date: "05"
+          date: form.date
         };
-        var newFoodRef = this.afs.collection('food').doc(user.uid);
-
-        newFoodRef.set(food).then(function() {
+        this.afs.collection('food').doc(user.uid).collection(food.date).add(food).then(function() {
             console.log("Document successfully written!");
             })
             .catch(function(error) {
             console.error("Error writing document: ", error);
           });
+      }
+
+      GetFoods(user,date): Observable<any>{
+        return this.afs.collection('food').doc(user.uid).collection(date).snapshotChanges();
       }
 
 }

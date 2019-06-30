@@ -40,11 +40,11 @@
           </form>
         </mat-card>
       </div>
-<div class="list" *ngIf="authService.isLoggedIn">
+<div class="list" *ngFor="let item of foodList | async">
   <mat-card class="item">
     <div class="box">
-      <mat-card-title>Kanapka</mat-card-title>
-      <mat-card-subtitle>280 kcal</mat-card-subtitle>
+      <mat-card-title>{{item.foodName}}</mat-card-title>
+      <mat-card-subtitle>{{item.calories}} kcal</mat-card-subtitle>
       <button mat-raised-button color="primary"  class="btn"    (click)="OnAddButtonClick" >Usuń</button>
     </div>
   </mat-card>
