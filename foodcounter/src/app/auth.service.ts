@@ -126,7 +126,7 @@ export class AuthService {
       }
 
 
-      UpdateUserProfile(user,form){
+      UpdateUserProfile(user, calorieForm , form = null){
         var userRef = this.afs.collection('profileinfos').doc(user.uid);
 
         userRef.update({
@@ -135,7 +135,8 @@ export class AuthService {
           dailyCalories: form.dailyCalories,
           weight: form.weight,
           goalWeight: form.goalWeight,
-          profilePhoto: user.photoURL
+          profilePhoto: user.photoURL,
+          todaysCalories : calorieForm.calories
         }).then(function() {
           console.log("Document successfully written!");
           })
@@ -147,6 +148,19 @@ export class AuthService {
        GetUserProfile(user){
         var docRef = this.afs.collection('profileinfos').doc(user.uid).valueChanges();
         return docRef;
+      }
+
+      UpdateCalories(user,form){
+        var userRef = this.afs.collection('profileinfos').doc(user.uid);
+
+        userRef.update({
+          todaysCalories : form.calories
+        }).then(function() {
+          console.log("Document successfully written!");
+          })
+          .catch(function(error) {
+          console.error("Error writing document: ", error);
+        });
       }
 
       AddFood(user,form){
@@ -179,4 +193,15 @@ export class AuthService {
         });
       }
 
+      SetCalories(user,form){
+      let calories = {
+        todaysCalories:form.calories};
+
+        this.afs.collection('food').doc(user.uid).collection(form.date).add(calories).then(function() {
+          console.log("Document successfully written!");
+          })
+          .catch(function(error) {
+          console.error("Error writing document: ", error);
+        });
+      }
 }

@@ -7,9 +7,9 @@
     <mat-card class="card"  *ngIf="(userProfile | async) as user">
       <mat-card-header>
         <div class="main">
-          <img mat-card-image class="photo" src="{{user.profilePhoto}}" alt="" >
+
           <mat-card-title>
-              Zjadłeś już dzisiaj {{todaysCalories}}/{{user.dailyCalories}}
+              Zjadłeś już dzisiaj {{user.todaysCalories}}/{{user.dailyCalories}}
 
           </mat-card-title>
           <mat-card-content>

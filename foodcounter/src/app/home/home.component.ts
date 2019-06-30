@@ -4,8 +4,9 @@ import { Component, OnInit, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, take } from 'rxjs/operators';
 import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,11 @@ import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/
 export class HomeComponent implements OnInit {
 
   userProfile: any;
-  todaysCalories: number;
+  todaysCalories: any;
   addFoodForm: FormGroup;
   date : string;
   foodList: Observable<any>;
+  user: any
 
 
   constructor(
@@ -32,6 +34,8 @@ export class HomeComponent implements OnInit {
   {
      this.userProfile = this.authService.GetUserProfile(this.authService.userData);
      this.todaysCalories = 0;
+     this.user =  this.authService.GetUserProfile(this.authService.userData).pipe(take(1)).subscribe(value => this.todaysCalories = value);
+     console.log(this.user);
     this.date = this.datePipe.transform(new Date(), 'dd-MM-yyyy' );
     }
 
@@ -53,8 +57,7 @@ export class HomeComponent implements OnInit {
             id: doc.payload.doc.id
           };
         });
-      }),
-      tap(ret => console.log(ret)),
+      })
     );
 
     }
@@ -75,19 +78,14 @@ export class HomeComponent implements OnInit {
 
   OnAddButtonClick(){
     this.todaysCalories += +this.addFoodForm.value.calories;
+    this.authService.UpdateCalories(this.authService.userData,this.addFoodForm.value);
     this.authService.AddFood(this.authService.userData, this.addFoodForm.value);
   }
 
 
   OnDeleteButtonClick(food){
-    console.log(food);
     this.todaysCalories -= +this.addFoodForm.value.calories;
     this.authService.DeleteFood(this.authService.userData, food);
   }
 
-
-
-  returnconsole(){
-    console.log('kappa');
-  }
 }
