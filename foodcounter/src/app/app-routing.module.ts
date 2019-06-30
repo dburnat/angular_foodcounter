@@ -6,14 +6,14 @@ import { UserDetailComponent } from './user-detail/user-detail.component';
 import { HomeComponent } from './home/home.component';
 
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadingStrategy } from '@angular/router';
 
 import { SecureInnerPagesGuard } from './secure-inner-pages.guard';
 import { AuthGuard } from './auth.guard';
 
 
 const routes: Routes = [
-  {path: '', redirectTo:'/login', pathMatch: 'full'},
+  {path: '', redirectTo:'/home', pathMatch: 'full'},
   {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'user-detail', component: UserDetailComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent, canActivate: [SecureInnerPagesGuard]},
@@ -26,5 +26,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
+
 })
 export class AppRoutingModule { }

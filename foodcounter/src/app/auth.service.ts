@@ -1,3 +1,4 @@
+import { Food } from './shared/services/food';
 import { AuthGuard } from './auth.guard';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -146,6 +147,23 @@ export class AuthService {
       GetUserProfile(user){
         var docRef = this.afs.collection('profileinfos').doc(user.uid).valueChanges();
         return docRef;
+      }
+
+      AddFood(user,form){
+
+        let food: Food ={
+          foodName : form.foodName,
+          calories : form.calories,
+          date: "05"
+        };
+        var newFoodRef = this.afs.collection('food').doc(user.uid);
+
+        newFoodRef.set(food).then(function() {
+            console.log("Document successfully written!");
+            })
+            .catch(function(error) {
+            console.error("Error writing document: ", error);
+          });
       }
 
 }

@@ -4,7 +4,7 @@
   <mat-card class="card" *ngIf="(userProfile | async) as user">
     <mat-card-header>
       <div class="profile">
-      <img mat-card-image class="photo" src="{{user.profilePhoto}}" >
+      <img mat-card-image class="photo" src="{{user.profilePhoto}}" alt="" >
       <mat-card-title>
         {{user.firstName}} {{user.lastName}}
       </mat-card-title>

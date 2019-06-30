@@ -3,14 +3,52 @@
     <!-- <mat-toolbar color="warn" *ngIf="authService.isLoggedIn == false">
         <span >Potwierdź swój email, żeby korzystać z funkcjonalności strony</span>
     </mat-toolbar> -->
-      <mat-card class="card" *ngIf="authService.userData as user">
-          <h1>Hello: <strong>{{(user.displayName) ? user.displayName : 'User'}}</strong></h1>
-          <p>User ID: <strong>{{user.uid}}</strong></p>
-          <p>Email: <strong>{{user.email}}</strong></p>
-          <p>Email Verified: <strong>{{user.emailVerified}}</strong></p>
-          <p>Is logged in: <strong>{{authService.isLoggedIn}}</strong></p>
-          <button mat-raised-button color="primary" class="btn" (click)="authService.Logout()">Wyloguj się</button>
+
+    <mat-card class="card"  *ngIf="(userProfile | async) as user">
+      <mat-card-header>
+        <div class="main">
+          <img mat-card-image class="photo" src="{{user.profilePhoto}}" alt="" >
+          <mat-card-title>
+              Zjadłeś już dzisiaj {{todaysCalories}}/{{user.dailyCalories}}
+
+          </mat-card-title>
+          <mat-card-content>
+            <p>
+              Aktualna waga to <strong>{{user.weight}}</strong> kg
+            </p>
+          </mat-card-content>
+        </div>
+        </mat-card-header>
       </mat-card>
+
+      <mat-card class="card" >
+          <form [formGroup]="addFoodForm">
+            <h2>Dodaj jedzenie</h2>
+
+            <div class="box">
+              <mat-form-field>
+                <input matInput placeholder="Nazwa" formControlName="foodName" required>
+              </mat-form-field>
+              <mat-form-field>
+                  <input matInput  pattern="[0-9]{1,4}" placeholder="Liczba kalorii" name="calories" formControlName="calories" required>
+                  <mat-error *ngIf="addFoodForm.controls.calories.isinvalid ">
+                      Coś tutaj nie gra
+                  </mat-error>
+                </mat-form-field>
+                <button mat-raised-button color="primary"  class="btn"   [disabled]="checkFormFields()" (click)="OnAddButtonClick()" >Dodaj</button>
+              </div>
+          </form>
+        </mat-card>
+      </div>
+<div class="list" *ngIf="authService.isLoggedIn">
+  <mat-card class="item">
+    <div class="box">
+      <mat-card-title>Kanapka</mat-card-title>
+      <mat-card-subtitle>280 kcal</mat-card-subtitle>
+      <button mat-raised-button color="primary"  class="btn"    (click)="OnAddButtonClick" >Usuń</button>
+    </div>
+  </mat-card>
 </div>
+
 
 

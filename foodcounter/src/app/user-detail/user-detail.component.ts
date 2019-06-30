@@ -46,12 +46,15 @@ export class UserDetailComponent implements OnInit,OnChanges{
       }
     }
     if(invalid.length > 0){
-      console.log(invalid.length)
       return true;
     }
     else
-    console.log("true");
+
       return false;
+  }
+
+  addFood(value){
+    console.log(value);
   }
 
   get weight(){
