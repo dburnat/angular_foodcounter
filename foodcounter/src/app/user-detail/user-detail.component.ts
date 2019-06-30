@@ -37,6 +37,23 @@ export class UserDetailComponent implements OnInit,OnChanges{
 
   }
 
+  public checkFormFields(): boolean{
+    const invalid =[];
+    const controls = this.myForm.controls;
+    for(const name in controls){
+      if(controls[name].invalid){
+        invalid.push(name);
+      }
+    }
+    if(invalid.length > 0){
+      console.log(invalid.length)
+      return true;
+    }
+    else
+    console.log("true");
+      return false;
+  }
+
   get weight(){
     return this.myForm.get('weight');
   }

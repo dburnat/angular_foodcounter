@@ -27,36 +27,37 @@
       <br><br><br>
       <div class="box">
         <mat-form-field>
-          <input matInput placeholder="Imię" formControlName="firstName">
+          <input matInput placeholder="Imię" formControlName="firstName" required>
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Nazwisko" formControlName="lastName">
+            <input matInput placeholder="Nazwisko" formControlName="lastName" required>
         </mat-form-field>
       </div>
       <div class="box">
         <mat-form-field>
-          <input type="text" pattern="[0-9]*" maxlength="3" matInput placeholder="Aktualna waga" formControlName="weight">
+          <input type="text" pattern="([0-9]{1,3})([\.,][0-9]{0,2})?" name="weight"  matInput placeholder="Aktualna waga" formControlName="weight" required>
 
-          <mat-error *ngIf="weight.invalid && weight.touched">
+          <mat-error *ngIf="weight.invalid && weight.touched && weight.errors.pattern ">
               Wprowadź poprawną wagę
           </mat-error>
         </mat-form-field>
         <mat-form-field>
-          <input type="text" pattern="[0-9]*" maxlength="3" matInput placeholder="Docelowa waga" formControlName="goalWeight">
-          <mat-error *ngIf="goalWeight.invalid && goalWeight.touched">
+          <input type="text" pattern="([0-9]{1,3})([\.,][0-9]{0,2})?"  matInput placeholder="Docelowa waga" name="goalWeight" formControlName="goalWeight" required>
+          <mat-error *ngIf="goalWeight.invalid && goalWeight.touched && goalWeight.errors.pattern">
               Wprowadź poprawną wagę
             </mat-error>
         </mat-form-field>
       </div>
       <div class="box">
         <mat-form-field>
-            <input type="text" pattern="[0-9]*" maxlength="4" matInput placeholder="Liczba kalorii" formControlName="dailyCalories">
-            <mat-error *ngIf="dailyCalories.invalid && dailyCalories.touched">
-              Coś nie tak z tymi kaloriami
-              </mat-error>
+            <input type="text" pattern="\d{1,4}"  matInput placeholder="Liczba kalorii" name="dailyCalories" formControlName="dailyCalories" required>
+            <mat-error *ngIf="dailyCalories.invalid && dailyCalories.touched && dailyCalories.errors.pattern ">
+              Coś mi tu nie pasuje
+            </mat-error>
+
         </mat-form-field>
       </div>
-      <button mat-raised-button color="primary"  class="btn" (click)="authService.UpdateUserProfile(authService.userData,myForm.value)">Zapisz</button>
+      <button mat-raised-button color="primary"  class="btn"  [disabled]="checkFormFields()" (click)="authService.UpdateUserProfile(authService.userData,myForm.value)">Zapisz</button>
     </form>
   </mat-card>
 
