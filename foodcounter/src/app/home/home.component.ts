@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
+import { ConvertActionBindingResult } from '@angular/compiler/src/compiler_util/expression_converter';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ import { map, tap } from 'rxjs/operators';
 export class HomeComponent implements OnInit {
 
   userProfile: any;
-  todaysCalories: any;
+  todaysCalories: number;
   addFoodForm: FormGroup;
   date : string;
   foodList: Observable<any>;
@@ -55,7 +56,7 @@ export class HomeComponent implements OnInit {
       }),
       tap(ret => console.log(ret)),
     );
-    
+
     }
   public checkFormFields(): boolean{
     const invalid =[];
@@ -73,10 +74,16 @@ export class HomeComponent implements OnInit {
   }
 
   OnAddButtonClick(){
+    this.todaysCalories += +this.addFoodForm.value.calories;
     this.authService.AddFood(this.authService.userData, this.addFoodForm.value);
   }
 
 
+  OnDeleteButtonClick(food){
+    console.log(food);
+    this.todaysCalories -= +this.addFoodForm.value.calories;
+    this.authService.DeleteFood(this.authService.userData, food);
+  }
 
 
 

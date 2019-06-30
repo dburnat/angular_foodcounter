@@ -168,4 +168,15 @@ export class AuthService {
         return this.afs.collection('food').doc(user.uid).collection(date).snapshotChanges();
       }
 
+      DeleteFood(user,food){
+
+        
+        return this.afs.collection('food').doc(user.uid).collection(food.date).doc(food.id).delete()
+        .then(function() {
+          console.log("Document successfully deleted!");
+        }).catch(function(error) {
+          console.error("Error removing document: ", error);
+        });
+      }
+
 }
