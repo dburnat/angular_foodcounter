@@ -144,7 +144,7 @@ export class AuthService {
         });
 
       }
-      GetUserProfile(user){
+       GetUserProfile(user){
         var docRef = this.afs.collection('profileinfos').doc(user.uid).valueChanges();
         return docRef;
       }
@@ -170,7 +170,7 @@ export class AuthService {
 
       DeleteFood(user,food){
 
-        
+
         return this.afs.collection('food').doc(user.uid).collection(food.date).doc(food.id).delete()
         .then(function() {
           console.log("Document successfully deleted!");

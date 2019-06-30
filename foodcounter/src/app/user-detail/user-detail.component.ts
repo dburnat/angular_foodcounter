@@ -18,7 +18,7 @@ export class UserDetailComponent implements OnInit,OnChanges{
     public authService: AuthService,
     ) {
 
-      this.userProfile = this.authService.GetUserProfile(this.authService.userData);
+       this.userProfile = this.authService.GetUserProfile(this.authService.userData);
      }
 
     ngOnChanges(){
